@@ -8,11 +8,6 @@ updates:
       day: "monday"
       time: "09:00"
     open-pull-requests-limit: 5
-    reviewers:
-      - "your-github-username"  # Replace with your GitHub username
-    labels:
-      - "dependencies"
-      - "security"
     commit-message:
       prefix: "deps"
     # Auto-merge minor/patch security updates
@@ -27,8 +22,5 @@ updates:
       day: "monday"
       time: "09:00"
     open-pull-requests-limit: 3
-    labels:
-      - "dependencies"
-      - "github-actions"
     commit-message:
       prefix: "ci"
