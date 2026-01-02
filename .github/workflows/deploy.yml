@@ -60,6 +60,13 @@ jobs:
       
       - name: Deploy to server
         run: |
+          ssh -i ~/.ssh/deploy_key "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" << 'ENDSSH'
+          set -e
+          
+          # Make directory writable for rsync
+          sudo chown -R $USER:$USER /opt/gsc-bot
+          ENDSSH
+          
           rsync -avz --delete -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             --exclude '.git' \
             --exclude '.env' \
@@ -68,19 +75,23 @@ jobs:
             --exclude '__pycache__' \
             ./ "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/opt/gsc-bot/"
           
-          ssh -i ~/.ssh/deploy_key "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" << 'ENDSSH'
+          ssh -i ~/.ssh/deploy_key "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" << 'ENDSSH2'
           set -e
           cd /opt/gsc-bot
           
+          # Fix ownership back to gscbot
           sudo chown -R gscbot:gscbot /opt/gsc-bot
           
+          # Update dependencies
           sudo -u gscbot /opt/gsc-bot/venv/bin/pip install --upgrade pip -q
           sudo -u gscbot /opt/gsc-bot/venv/bin/pip install -r /opt/gsc-bot/requirements.txt -q
           
+          # Create .env file
           echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}" | sudo -u gscbot tee /opt/gsc-bot/.env > /dev/null
           echo "GUILD_ID=${{ secrets.GUILD_ID }}" | sudo -u gscbot tee -a /opt/gsc-bot/.env > /dev/null
           echo "ADMIN_ROLE_ID=${{ secrets.ADMIN_ROLE_ID }}" | sudo -u gscbot tee -a /opt/gsc-bot/.env > /dev/null
           
+          # Restart bot
           sudo systemctl restart gsc-bot
           sleep 3
           
@@ -91,7 +102,7 @@ jobs:
           fi
           
           echo "Deployment successful!"
-          ENDSSH
+          ENDSSH2
       
       - name: Notify deployment status
         if: always()
