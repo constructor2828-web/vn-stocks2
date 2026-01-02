@@ -64,10 +64,16 @@ jobs:
             set -e
             PROJECT_DIR="/opt/gsc-bot"
             
-            sudo chown -R gscbot:gscbot "$PROJECT_DIR"
             cd "$PROJECT_DIR"
-            sudo -u gscbot git config --global --add safe.directory "$PROJECT_DIR"
-            sudo -u gscbot git pull origin main
+            sudo chown -R gscbot:gscbot "$PROJECT_DIR"
+            
+            sudo -u gscbot bash << 'GITCMD'
+              cd /opt/gsc-bot
+              git config --global --add safe.directory /opt/gsc-bot
+              git remote set-url origin https://github.com/alivec0rpse/vn-stocks.git
+              git fetch origin main
+              git reset --hard origin/main
+            GITCMD
             
             sudo -u gscbot bash << 'INNER_EOF'
               cd /opt/gsc-bot
