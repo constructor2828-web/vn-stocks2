@@ -51,7 +51,8 @@ jobs:
       - name: Check for secrets
         run: |
           echo "Checking for hardcoded secrets..."
-          if grep -r "DISCORD_TOKEN.*=.*['\"]" --include="*.py" --exclude-dir=venv .; then
+          # Look for hardcoded tokens (exclude environment variable usage)
+          if grep -rP 'DISCORD_TOKEN\s*=\s*["\'][^"\']*["\']' --include="*.py" --exclude-dir=venv . | grep -v 'getenv\|environ'; then
             echo "❌ Found hardcoded Discord tokens!"
             exit 1
           fi
