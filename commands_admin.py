@@ -243,7 +243,7 @@ class AdminCommands(commands.Cog):
         # Calculate price change based on rating
         # Rating 5 = neutral, above 5 = positive, below 5 = negative
         rating_impact = (rating - 5) / 5  # Range: -0.8 to +1.0
-        price_change_pct = rating_impact * 0.15  # Max ±15% change
+        price_change_pct = rating_impact * config.RATING_MAX_IMPACT  # Max ±15% change
         
         price_change = int(current_price * price_change_pct)
         new_price = max(1, current_price + price_change)  # Ensure price stays positive
@@ -344,7 +344,7 @@ class AdminCommands(commands.Cog):
             return
         
         # Apply HEAT buff: 25% price increase
-        heat_buff = 0.25
+        heat_buff = config.HEAT_BUFF_PERCENTAGE
         price_increase = int(current_price * heat_buff)
         new_price = current_price + price_increase
         

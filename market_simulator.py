@@ -79,18 +79,18 @@ class MarketSimulator:
         
         # Momentum component (trends persist)
         current_momentum = self.momentum.get(symbol, 0.0)
-        momentum_impact = current_momentum * 0.3  # 30% of previous momentum
+        momentum_impact = current_momentum * config.MOMENTUM_IMPACT_FACTOR
         
         # Update momentum with new change
         new_momentum = random_change + activity_impact
-        self.momentum[symbol] = new_momentum * 0.7 + current_momentum * 0.3
+        self.momentum[symbol] = new_momentum * 0.7 + current_momentum * config.MOMENTUM_PERSISTENCE_FACTOR
         
         # Mean reversion (pull towards starting price)
         team_config = config.TEAMS.get(symbol)
         if team_config:
             starting_price = team_config['starting_price']
             distance_from_start = (current_price - starting_price) / starting_price
-            mean_reversion = -distance_from_start * 0.01  # 1% pull towards mean
+            mean_reversion = -distance_from_start * config.MEAN_REVERSION_STRENGTH
         else:
             mean_reversion = 0
         
@@ -98,7 +98,7 @@ class MarketSimulator:
         total_change = random_change + activity_impact + momentum_impact + mean_reversion
         
         # Clamp extreme changes (prevent huge spikes/crashes)
-        max_change = volatility * 6  # Max 6x volatility change
+        max_change = volatility * config.MAX_VOLATILITY_MULTIPLIER
         total_change = max(-max_change, min(max_change, total_change))
         
         # Calculate new price

@@ -10,6 +10,7 @@ import market
 import team_detection
 import utils
 import config
+from logger import logger
 
 # Set dark theme
 plt.style.use('dark_background')
@@ -53,7 +54,8 @@ async def generate_price_graph(symbol: str, days: int = 7) -> str:
             price = entry['price'] / config.SPURS_PER_COG  # Convert to Cogs for display
             timestamps.append(timestamp)
             prices.append(price)
-        except (ValueError, KeyError):
+        except (ValueError, KeyError) as e:
+            logger.warning(f"Invalid price history entry for {symbol}: {e}")
             continue
     
     if not timestamps:
@@ -135,7 +137,8 @@ async def generate_comparison_graph(symbols: List[str]) -> str:
                 price = entry['price'] / config.SPURS_PER_COG
                 timestamps.append(timestamp)
                 prices.append(price)
-            except (ValueError, KeyError):
+            except (ValueError, KeyError) as e:
+                logger.warning(f"Invalid price history entry: {e}")
                 continue
         
         if timestamps:
@@ -203,7 +206,8 @@ async def generate_portfolio_graph(user_id: int, history_data: List[Dict]) -> st
             value = entry['total_value'] / config.SPURS_PER_COG
             timestamps.append(timestamp)
             values.append(value)
-        except (ValueError, KeyError):
+        except (ValueError, KeyError) as e:
+            logger.warning(f"Invalid portfolio history entry: {e}")
             continue
     
     if not timestamps:

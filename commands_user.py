@@ -173,6 +173,7 @@ class UserCommands(commands.Cog):
         symbol="Stock symbol (e.g., STMP, VOC)",
         shares="Number of shares to buy"
     )
+    @commands.cooldown(1, 5, commands.BucketType.user)  # 1 per 5 seconds per user
     async def buy(self, interaction: discord.Interaction, symbol: str, shares: int):
         """Buy stock shares."""
         user_id = interaction.user.id
@@ -303,6 +304,7 @@ class UserCommands(commands.Cog):
         symbol="Stock symbol (e.g., STMP, VOC)",
         shares="Number of shares to sell"
     )
+    @commands.cooldown(1, 5, commands.BucketType.user)  # 1 per 5 seconds per user
     async def sell(self, interaction: discord.Interaction, symbol: str, shares: int):
         """Sell stock shares."""
         user_id = interaction.user.id

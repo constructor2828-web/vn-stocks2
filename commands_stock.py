@@ -348,8 +348,10 @@ async def create_stock_embed(symbol: str, user_id: int):
         graph_path = await graphing.generate_price_graph(symbol)
         graph_file = discord.File(graph_path, filename=f'{symbol}_chart.png')
         embed.set_image(url=f'attachment://{symbol}_chart.png')
-    except:
-        pass  # Skip graph if it fails
+    except Exception as e:
+        # Log error but continue without graph
+        from logger import logger
+        logger.error(f"Failed to generate graph for {symbol}: {e}")
     
     # Current price
     price_str = utils.format_price(current_price)
