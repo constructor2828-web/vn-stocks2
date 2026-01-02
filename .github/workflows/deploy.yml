@@ -34,41 +34,31 @@ jobs:
           GUILD_ID: ${{ secrets.GUILD_ID }}
           ADMIN_ROLE_ID: ${{ secrets.ADMIN_ROLE_ID }}
         run: |
-          ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" << 'EOF'
+          ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" bash -s << 'EOF'
             set -e
             PROJECT_DIR="/opt/gsc-bot"
             
-            # Navigate to project directory
             cd "$PROJECT_DIR"
-            
-            # Pull latest changes
             git pull origin main
             
-            # Activate virtual environment and update dependencies
             source venv/bin/activate
-            pip install --upgrade pip
-            pip install -r requirements.txt
+            pip install --upgrade pip -q
+            pip install -r requirements.txt -q
             
-            # Update .env file with secrets
-            cat > .env << ENVEOF
-          DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
-          GUILD_ID=${{ secrets.GUILD_ID }}
-          ADMIN_ROLE_ID=${{ secrets.ADMIN_ROLE_ID }}
-          ENVEOF
+            echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}" > .env
+            echo "GUILD_ID=${{ secrets.GUILD_ID }}" >> .env
+            echo "ADMIN_ROLE_ID=${{ secrets.ADMIN_ROLE_ID }}" >> .env
             
-            # Restart bot service
             sudo systemctl restart gsc-bot
-            
-            # Check if service started successfully
             sleep 3
+            
             if ! systemctl is-active --quiet gsc-bot; then
-              echo "ERROR: Bot failed to start!"
+              echo "Bot failed to start!"
               sudo journalctl -u gsc-bot -n 50 --no-pager
               exit 1
             fi
             
             echo "Deployment successful!"
-            sudo systemctl status gsc-bot --no-pager
           EOF
       
       - name: Notify deployment status
