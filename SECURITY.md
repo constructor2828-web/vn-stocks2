@@ -19,7 +19,7 @@ If you discover a security vulnerability, please report it privately:
 
 ### How to Report
 
-1. **Email**: Send details to your-email@example.com (replace with your email)
+1. **Email**: Send details to hello@infernohost.qzz.io
 2. **GitHub Security**: Use [GitHub Security Advisories](../../security/advisories/new)
 3. **Discord**: DM the maintainer on Discord (if applicable)
 
