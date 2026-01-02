@@ -64,58 +64,48 @@ jobs:
         id: ai-review
         run: |
           PR_INFO='${{ steps.pr-info.outputs.result }}'
-          PR_DIFF=$(cat pr_diff.txt)
           
-          # Extract PR details
+          # Extract PR details safely
           TITLE=$(echo "$PR_INFO" | jq -r '.title')
           DESC=$(echo "$PR_INFO" | jq -r '.description')
           FILES=$(echo "$PR_INFO" | jq -r '.files')
           ADDITIONS=$(echo "$PR_INFO" | jq -r '.additions')
           DELETIONS=$(echo "$PR_INFO" | jq -r '.deletions')
           
-          # Create prompt for Gemini
-          cat > prompt.txt << 'PROMPT'
-          You are an expert code reviewer for a Discord bot project written in Python. Review this pull request and provide:
-
-          1. **Summary** (2-3 sentences): What does this PR do?
-          2. **Key Changes**: Bullet list of main changes
-          3. **Security Concerns**: Any security issues or vulnerabilities (or "None found")
-          4. **Code Quality**: Issues with code style, complexity, or maintainability
-          5. **Suggestions**: Specific improvements (with line numbers if possible)
-          6. **Overall Assessment**: APPROVE, REQUEST_CHANGES, or COMMENT with reasoning
-
-          Be concise, practical, and focus on issues that matter. Format your response in markdown.
-
-          PR Title: ${TITLE}
-          Description: ${DESC}
-
-          Files Changed (${ADDITIONS} additions, ${DELETIONS} deletions):
-          ${FILES}
-
-          Diff:
-          PROMPT
+          # Truncate description if too long
+          if [ ${#DESC} -gt 2000 ]; then
+            DESC="${DESC:0:2000}... (truncated)"
+          fi
           
-          cat prompt.txt pr_diff.txt > full_prompt.txt
+          # Read diff (already truncated in previous step)
+          PR_DIFF=$(cat pr_diff.txt)
+          
+          # Create prompt with proper escaping
+          jq -n \
+            --arg title "$TITLE" \
+            --arg desc "$DESC" \
+            --arg files "$FILES" \
+            --arg additions "$ADDITIONS" \
+            --arg deletions "$DELETIONS" \
+            --arg diff "$PR_DIFF" \
+            '{
+              contents: [{
+                parts: [{
+                  text: "You are an expert code reviewer for a Discord bot project written in Python. Review this pull request and provide:\n\n1. **Summary** (2-3 sentences): What does this PR do?\n2. **Key Changes**: Bullet list of main changes\n3. **Security Concerns**: Any security issues or vulnerabilities (or \"None found\")\n4. **Code Quality**: Issues with code style, complexity, or maintainability\n5. **Suggestions**: Specific improvements (with line numbers if possible)\n6. **Overall Assessment**: APPROVE, REQUEST_CHANGES, or COMMENT with reasoning\n\nBe concise, practical, and focus on issues that matter. Format your response in markdown.\n\nPR Title: \($title)\nDescription: \($desc)\n\nFiles Changed (\($additions) additions, \($deletions) deletions):\n\($files)\n\nDiff:\n\($diff)"
+                }]
+              }],
+              generationConfig: {
+                temperature: 0.3,
+                maxOutputTokens: 2048
+              }
+            }' > request.json
           
           # Call Gemini API
           RESPONSE=$(curl -s -X POST \
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" \
             -H "x-goog-api-key: ${{ secrets.GEMINI_API_KEY }}" \
             -H "Content-Type: application/json" \
-            -d @- << EOF
-          {
-            "contents": [{
-              "parts": [{
-                "text": $(jq -Rs . < full_prompt.txt)
-              }]
-            }],
-            "generationConfig": {
-              "temperature": 0.3,
-              "maxOutputTokens": 2048
-            }
-          }
-          EOF
-          )
+            -d @request.json)
           
           # Extract review text
           REVIEW=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text // "Failed to generate review"')
