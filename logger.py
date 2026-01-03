@@ -1,7 +1,7 @@
 """Centralized logging configuration for the bot."""
 import logging
 import os
-from datetime import datetime
+from datetime import datetime, UTC
 
 # Create logs directory if it doesn't exist
 LOG_DIR = 'logs'
@@ -21,7 +21,7 @@ console_handler.setLevel(logging.INFO)
 console_handler.setFormatter(logging.Formatter(LOG_FORMAT, DATE_FORMAT))
 
 # File handler (daily log rotation)
-log_filename = os.path.join(LOG_DIR, f'bot_{datetime.utcnow().strftime("%Y%m%d")}.log')
+log_filename = os.path.join(LOG_DIR, f'bot_{datetime.now(UTC).strftime("%Y%m%d")}.log')
 file_handler = logging.FileHandler(log_filename, encoding='utf-8')
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(logging.Formatter(LOG_FORMAT, DATE_FORMAT))
