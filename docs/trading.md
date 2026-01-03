@@ -1,13 +1,6 @@
----
-layout: default
-title: Trading Guide
----
-
 # Trading Guide 📈
 
 Master the art of trading in GSC with proven strategies, tips, and techniques.
-
----
 
 ## Understanding Price Movement
 
@@ -44,8 +37,6 @@ Market updates happen **every 3 minutes**:
 5. Updates all prices simultaneously
 6. Executes any triggered limit orders
 
----
-
 ## Basic Trading Strategies
 
 ### 1. Activity Trading (Beginner) 🎯
@@ -65,9 +56,9 @@ Market updates happen **every 3 minutes**:
 11:09 - Activity slows, you sell for +8% profit
 ```
 
-<div class="info-box success">
-<strong>Best for:</strong> New traders who want quick, observable results
-</div>
+::: tip Best For
+New traders who want quick, observable results
+:::
 
 ### 2. Volatility Trading (Intermediate) 📊
 
@@ -87,9 +78,9 @@ Day 2: Random volatility spike: 24 → 29 Cogs (+21%)
        You sell for +50 Cogs profit
 ```
 
-<div class="info-box warning">
-<strong>Risk:</strong> High volatility can go against you just as easily!
-</div>
+::: warning Risk
+High volatility can go against you just as easily!
+:::
 
 ### 3. Momentum Trading (Intermediate) 🚀
 
@@ -110,9 +101,9 @@ Week 2: Trend continues to 19.2 Cogs
         You sell for +16% profit
 ```
 
-<div class="info-box tip">
-<strong>Tip:</strong> Use <code>/candlestick</code> to see trend strength visually
-</div>
+::: tip
+Use `/candlestick` to see trend strength visually
+:::
 
 ### 4. Diversification (Defensive) 🛡️
 
@@ -132,34 +123,9 @@ Week 2: Trend continues to 19.2 Cogs
 20% Cash (for opportunities)
 ```
 
-<div class="info-box success">
-<strong>Best for:</strong> Risk-averse traders who want stable growth
-</div>
-
-### 5. Mean Reversion (Advanced) 🎲
-
-**Concept:** Buy when stocks are "too low", sell when "too high"
-
-**How it works:**
-- Track normal price ranges for each stock
-- Buy when price drops 15%+ below average
-- Sell when price rises 15%+ above average
-- Requires patience and price history knowledge
-
-**Example:**
-```
-POT normally trades 11-13 Cogs
-Price crashes to 9.5 Cogs (rare event)
-You buy 20 shares at 9.5 Cogs
-Over next week, reverts to 12 Cogs
-You sell for +26% profit
-```
-
-<div class="info-box warning">
-<strong>Requires:</strong> Long-term price tracking and market knowledge
-</div>
-
----
+::: tip Best For
+Risk-averse traders who want stable growth
+:::
 
 ## Advanced Techniques
 
@@ -186,7 +152,7 @@ Order executes automatically at 22 Cogs
 Profit secured without watching!
 ```
 
-[See Advanced Features guide for details](advanced.html)
+See the [Advanced Features guide](/advanced) for details!
 
 ### Using Price Alerts 🔔
 
@@ -203,48 +169,6 @@ Get notified when prices hit your targets.
 - Bot DMs you immediately
 - You check the chart and decide to buy/sell
 - No need to constantly refresh!
-```
-
-### Tracking with Watchlist 👀
-
-Monitor stocks without owning them.
-
-**Use case:**
-```
-You're interested in POT but not ready to buy
-Add to watchlist: /watch symbol:POT
-Check watchlist: /watchlist
-See POT: 11.95 Cogs (-2.3% today)
-Price looking good, time to buy!
-```
-
----
-
-## Market Timing Tips
-
-### Best Times to Buy 💰
-
-1. **After major sell-offs** - Prices often rebound
-2. **When activity is ramping up** - Get in before the spike
-3. **During sideways movement** - Accumulate before breakout
-4. **When you have cash reserves** - Don't force trades
-
-### Best Times to Sell 📤
-
-1. **After big price spikes** - Lock in profits
-2. **When activity dies down** - Before the drop
-3. **Near resistance levels** - Use candlestick charts
-4. **When you need cash** - For better opportunities
-
-### Times to Do Nothing ⏸️
-
-Sometimes the best trade is no trade:
-- Market is choppy with no clear direction
-- You're not sure about a position
-- No stocks look attractively priced
-- You're at full cash and want to wait
-
----
 
 ## Risk Management
 
@@ -258,10 +182,6 @@ Sometimes the best trade is no trade:
 **Example:**
 ```
 Starting capital: 10 Cogs
-
-Bad allocation:
-- 9 Cogs in VIOL (90% - way too risky!)
-- 1 Cog cash
 
 Good allocation:
 - 2 Cogs in STMP (20%)
@@ -283,20 +203,6 @@ Decide in advance when to cut losses:
 - Protects capital for better trades
 - Removes emotion from decisions
 
-### Taking Profits 💎
-
-**The ladder approach:**
-```
-Stock goes up 10% → Sell 25% of position
-Stock goes up 20% → Sell another 25%
-Stock goes up 30% → Sell another 25%
-Stock goes up 40%+ → Sell remaining 25%
-```
-
-This way you lock in profits while keeping upside potential.
-
----
-
 ## Common Trading Mistakes
 
 ### ❌ Revenge Trading
@@ -309,22 +215,10 @@ This way you lock in profits while keeping upside potential.
 
 **Solution:** Wait for pullbacks. There's always another opportunity.
 
-### ❌ Averaging Down
-**Mistake:** Stock drops 20%, you buy more hoping to "average down"
-
-**Solution:** If a stock is falling, there's often a reason. Cut losses instead.
-
-### ❌ Ignoring the Chart
-**Mistake:** Trading based only on "gut feeling"
-
-**Solution:** Always check `/graph` and `/candlestick` first.
-
 ### ❌ Overtrading
 **Mistake:** Making 10+ trades per day chasing every small move
 
 **Solution:** Quality over quantity. Wait for high-confidence setups.
-
----
 
 ## Quick Strategy Reference
 
@@ -334,18 +228,13 @@ This way you lock in profits while keeping upside potential.
 | Volatility Trading | High | Hours-Days | Risk-takers |
 | Momentum Trading | Medium | Days-Weeks | Trend followers |
 | Diversification | Low | Weeks-Months | Defensive |
-| Mean Reversion | Medium | Days-Weeks | Patient traders |
-| Limit Orders | Variable | Set & forget | Busy people |
-
----
 
 ## Next Steps
 
-- [⚡ Learn Advanced Features](advanced.html) - Limit orders, alerts, and tools
-- [📋 Command Reference](commands.html) - All available commands
-- [❓ FAQ](faq.html) - Common questions answered
+- [Advanced Features](/advanced) - Limit orders, alerts, and tools
+- [Commands Reference](/commands) - All available commands
+- [FAQ](/faq) - Common questions answered
 
-<div class="info-box success">
-<strong>Ready to trade like a pro?</strong><br>
+::: tip Ready to Trade Like a Pro?
 Apply these strategies in Discord and track your results over time. The best traders learn from both wins and losses!
-</div>
+:::

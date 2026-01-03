@@ -1,13 +1,6 @@
----
-layout: default
-title: FAQ
----
-
 # Frequently Asked Questions ❓
 
 Common questions and answers about GSC Stock Exchange.
-
----
 
 ## Getting Started
 
@@ -22,8 +15,6 @@ No, each Discord account can only register once. Your account and balance are pe
 ### What if I lose all my money?
 
 Contact an admin - they might give you a small bailout to get back on your feet! Or wait for giveaways and events.
-
----
 
 ## Money & Pricing
 
@@ -58,8 +49,6 @@ Could be:
 - Momentum from existing trend
 - Multiple traders buying/selling
 
----
-
 ## Trading
 
 ### How do I know when to buy or sell?
@@ -74,7 +63,7 @@ Could be:
 - Price spiked unusually high
 - Team activity is dying down
 
-See the [Trading Guide](trading.html) for detailed strategies!
+See the [Trading Guide](/trading) for detailed strategies!
 
 ### What's the best stock to buy?
 
@@ -100,8 +89,6 @@ Check:
 
 No! All trades are commission-free. Buy/sell at market price with no extra costs.
 
----
-
 ## Limit Orders
 
 ### What happens if my limit order never triggers?
@@ -122,15 +109,9 @@ Possible reasons:
 
 ### Do limit orders cost anything to create?
 
-**Buy orders:** Money is reserved when created
-**Sell orders:** Shares must be in portfolio
+**Buy orders:** Money is reserved when created  
+**Sell orders:** Shares must be in portfolio  
 No fees for creating/canceling orders!
-
-### What if multiple people have orders at the same price?
-
-First come, first served - whoever placed their order earlier gets filled first.
-
----
 
 ## Price Alerts
 
@@ -154,8 +135,6 @@ No, alerts are one-time use. After triggering, they auto-delete. Create a new on
 
 Unlimited! Set as many as you want.
 
----
-
 ## Charts & Analysis
 
 ### What do the graph colors mean?
@@ -174,7 +153,7 @@ Each "candle" shows price movement over one hour:
 - **Wick** - Shows highest/lowest prices
 - **Body** - Shows open/close prices
 
-See [Advanced Features](advanced.html#candlestick-charts) for details!
+See [Advanced Features](/advanced#candlestick-charts) for details!
 
 ### Why does the graph show "no data"?
 
@@ -183,8 +162,6 @@ Stock might be brand new with limited price history. Wait a few hours for data t
 ### Can I see historical data from weeks ago?
 
 Yes! Use `/candlestick symbol:STMP period:30d` for last 30 days of data.
-
----
 
 ## Portfolio & Performance
 
@@ -213,12 +190,6 @@ Example: Invested 100 Cogs, now worth 125 Cogs = +25% ROI
 
 Prices change! Your portfolio value is based on **current market prices**, not what you paid.
 
-### Does the pie chart update automatically?
-
-No, run `/portfolio` again to refresh. Each chart is a snapshot at that moment.
-
----
-
 ## Achievements
 
 ### How do I earn achievements?
@@ -232,12 +203,6 @@ No, once earned they're permanent badges!
 ### What's the rarest achievement?
 
 **🌟 Moon Mission** (Legendary) - Requires 1000%+ profit on a single trade. Extremely difficult!
-
-### Do achievements give rewards?
-
-They're purely for bragging rights and showing your trading skill!
-
----
 
 ## Technical Issues
 
@@ -262,12 +227,6 @@ Make sure:
 - Your internet connection is stable
 - Graph command has all required parameters
 
-### Lost all my data!
-
-Don't panic - data is stored in database. Contact an admin, they can check/restore.
-
----
-
 ## Strategy Questions
 
 ### What's the best strategy for beginners?
@@ -278,7 +237,7 @@ Don't panic - data is stored in database. Contact an admin, they can check/resto
 3. Sell after a few updates when activity dies
 4. Repeat!
 
-Simple and effective. See [Trading Guide](trading.html) for more!
+Simple and effective. See [Trading Guide](/trading) for more!
 
 ### Should I buy and hold or day trade?
 
@@ -308,22 +267,6 @@ Try both and see what fits your style!
 
 Never put 100% in one stock!
 
-### When should I use limit orders vs manual trading?
-
-**Limit orders:**
-- You have a specific target price
-- You can't watch charts 24/7
-- You want to remove emotion
-
-**Manual trading:**
-- Price is good right now
-- Market conditions changing rapidly
-- You want immediate execution
-
-Use both together!
-
----
-
 ## Market Mechanics
 
 ### Why do some teams have higher volatility?
@@ -338,36 +281,21 @@ Volatility can't be changed.
 
 No, individual trades don't move the market. Prices only change during 3-minute update cycles based on activity and algorithms.
 
-### What happens during market updates?
-
-Every 3 minutes:
-1. Bot checks Discord activity for each team
-2. Calculates new prices using the formula
-3. Updates all stock prices
-4. Executes any triggered limit orders
-5. Checks price alerts
-6. Records prices in history
-
 ### Can admins manipulate prices?
 
 Yes, admins can use `/setprice` for manual adjustments, but it's logged. Used mainly for bug fixes or special events.
 
----
-
 ## Still Have Questions?
 
 Check these resources:
-- [🏠 Home](index.html) - Overview and quick links
-- [📖 Getting Started](getting-started.html) - Basics tutorial
-- [📈 Trading Guide](trading.html) - Strategies and tips
-- [⚡ Advanced Features](advanced.html) - Limit orders, alerts, etc.
-- [📋 Commands](commands.html) - Full command reference
+- [Home](/) - Overview and quick links
+- [Getting Started](/getting-started) - Basics tutorial
+- [Trading Guide](/trading) - Strategies and tips
+- [Advanced Features](/advanced) - Limit orders, alerts, etc.
+- [Commands](/commands) - Full command reference
 
 Or ask in the Discord server - traders love helping newcomers!
 
----
-
-<div class="info-box success">
-<strong>Happy Trading! 🎯</strong><br>
+::: tip Happy Trading!
 Remember: the best way to learn is by doing. Start small, experiment, and have fun!
-</div>
+:::

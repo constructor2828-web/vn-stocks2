@@ -2,15 +2,11 @@
 
 This guide will walk you through everything you need to know to start trading in the Gearfall Stock Exchange.
 
----
-
 ## Step 1: Register Your Account
 
 Before you can trade, you need to create an account.
 
-```
-/register
-```
+**/register**
 
 Creates your trading account and gives you 10 Cogs starting capital
 
@@ -19,17 +15,17 @@ Creates your trading account and gives you 10 Cogs starting capital
 - A portfolio is created to track your holdings
 - You can now buy/sell stocks and use all features
 
-::: tip\nContent\n:::
-
----
+::: warning Important
+You can only register once! Make sure you're using the right Discord account.
+:::
 
 ## Step 2: Check Your Balance
 
 See how much money you have available to trade.
 
-```\n/command\n```\nDescription text
-<div class="description">Shows your current cash balance and total portfolio value</div>
-</div>
+**/balance**
+
+Shows your current cash balance and total portfolio value
 
 **Example output:**
 ```
@@ -38,15 +34,13 @@ See how much money you have available to trade.
 💎 Total Worth: 10 Cogs
 ```
 
----
-
 ## Step 3: View the Market
 
 Before buying, check which stocks are available and their current prices.
 
-```\n/command\n```\nDescription text
-<div class="description">Lists all available stocks with current prices and 24h changes</div>
-</div>
+**/market**
+
+Lists all available stocks with current prices and 24h changes
 
 **Example output:**
 ```
@@ -60,17 +54,17 @@ CRAV: 26.33 Cogs (+3.8%)
 VOC: 15.78 Cogs (+0.9%)
 ```
 
-::: tip\nContent\n:::
-
----
+::: tip
+Green percentages mean the stock went up, red means it went down!
+:::
 
 ## Step 4: Check a Specific Stock
 
 Get detailed information about a single stock before buying.
 
-```\n/command\n```\nDescription text
-<div class="description">Shows current price, 24h change, volatility, and price history</div>
-</div>
+**/stock symbol:STMP**
+
+Shows current price, 24h change, volatility, and price history
 
 **What you'll see:**
 - Current price in Cogs
@@ -79,15 +73,13 @@ Get detailed information about a single stock before buying.
 - Recent price history
 - Market cap
 
----
-
 ## Step 5: Make Your First Trade
 
 ### Buying Stocks
 
-```\n/command\n```\nDescription text
-<div class="description">Buys 5 shares of STMP at current market price</div>
-</div>
+**/buy symbol:STMP shares:5**
+
+Buys 5 shares of STMP at current market price
 
 **What happens:**
 1. Bot checks if you have enough money
@@ -106,9 +98,9 @@ New Balance: 7.75 Cogs remaining
 
 ### Selling Stocks
 
-```\n/command\n```\nDescription text
-<div class="description">Sells 3 shares of STMP at current market price</div>
-</div>
+**/sell symbol:STMP shares:3**
+
+Sells 3 shares of STMP at current market price
 
 **What happens:**
 1. Bot checks if you own enough shares
@@ -126,17 +118,17 @@ Profit: +4.05 Cogs (+6.6%)
 New Balance: 73.15 Cogs
 ```
 
-::: tip\nContent\n:::
-
----
+::: tip Success!
+If you sold for more than you bought, you made money!
+:::
 
 ## Step 6: Check Your Portfolio
 
 See all your current holdings and how they're performing.
 
-```\n/command\n```\nDescription text
-<div class="description">Shows all your stocks with current values and P/L</div>
-</div>
+**/portfolio**
+
+Shows all your stocks with current values and P/L
 
 **Example output:**
 ```
@@ -154,15 +146,13 @@ Overall P/L: +16.75 Cogs (+16.8%)
 
 You also get a pie chart showing your asset allocation!
 
----
-
 ## Step 7: View Price Charts
 
 See how stock prices have changed over time.
 
-```\n/command\n```\nDescription text
-<div class="description">Shows a live-updating TradingView style price chart</div>
-</div>
+**/graph symbol:STMP**
+
+Shows a live-updating TradingView style price chart
 
 **Features:**
 - Updates every 30 seconds automatically
@@ -170,11 +160,11 @@ See how stock prices have changed over time.
 - TradingView dark theme styling
 - Stop/Start buttons to control updates
 
-::: tip\nContent\n:::
+::: tip Pro Tip
+Use `/candlestick symbol:STMP` for OHLC candlestick charts showing price patterns!
+:::
 
----
-
-## Common Mistakes to Avoid ⚠️
+## Common Mistakes to Avoid
 
 ### 1. Spending All Your Money at Once
 **Problem:** You buy everything with your 10 Cogs, then a better opportunity appears
@@ -201,18 +191,15 @@ See how stock prices have changed over time.
 
 **Solution:** Always check `/graph` or `/candlestick` before big trades
 
----
-
 ## What's Next?
 
 Now that you know the basics, level up your trading:
 
-- [📈 Trading Guide](trading.html) - Learn strategies and techniques
-- [⚡ Advanced Features](advanced.html) - Limit orders, alerts, and more
-- [📋 Commands Reference](commands.html) - Complete command list
-- [❓ FAQ](faq.html) - Common questions answered
+- [Trading Guide](/trading) - Learn strategies and techniques
+- [Advanced Features](/advanced) - Limit orders, alerts, and more
+- [Commands Reference](/commands) - Complete command list
+- [FAQ](/faq) - Common questions answered
 
----
-
-::: tip\nContent\n:::
-
+::: tip Ready to Trade!
+You now have everything you need to start making money in GSC. Head to Discord and type `/register` to begin!
+:::

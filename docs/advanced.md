@@ -1,13 +1,6 @@
----
-layout: default
-title: Advanced Features
----
-
 # Advanced Features ⚡
 
 Take your trading to the next level with powerful automation and analysis tools.
-
----
 
 ## Limit Orders 🎯
 
@@ -25,10 +18,9 @@ Limit orders let you set automatic buy/sell orders that execute when prices hit 
 
 Buy stocks automatically when price drops to your target.
 
-<div class="command-example">
-<div class="command">/limitbuy symbol:STMP shares:10 price:18</div>
-<div class="description">Buys 10 STMP shares if price drops to 18 Cogs or lower</div>
-</div>
+**/limitbuy symbol:STMP shares:10 price:18**
+
+Buys 10 STMP shares if price drops to 18 Cogs or lower
 
 **Real-world scenario:**
 ```
@@ -48,18 +40,17 @@ What happens:
 - Cost: 178 Cogs deducted from balance
 ```
 
-<div class="info-box success">
-<strong>Pro Tip:</strong> Set limit buys 10-15% below current price to catch dips
-</div>
+::: tip Pro Tip
+Set limit buys 10-15% below current price to catch dips
+:::
 
 ### Creating Limit Sell Orders
 
 Sell stocks automatically when price rises to your target.
 
-<div class="command-example">
-<div class="command">/limitsell symbol:VIOL shares:15 price:25</div>
-<div class="description">Sells 15 VIOL shares if price rises to 25 Cogs or higher</div>
-</div>
+**/limitsell symbol:VIOL shares:15 price:25**
+
+Sells 15 VIOL shares if price rises to 25 Cogs or higher
 
 **Real-world scenario:**
 ```
@@ -80,18 +71,17 @@ What happens:
 - Profit: 105 Cogs (+39%) secured
 ```
 
-<div class="info-box tip">
-<strong>Strategy:</strong> Use limit sells to lock in 20-30% profits automatically
-</div>
+::: tip Strategy
+Use limit sells to lock in 20-30% profits automatically
+:::
 
 ### Managing Your Orders
 
 View all active limit orders:
 
-<div class="command-example">
-<div class="command">/orders</div>
-<div class="description">Lists all pending limit orders with details</div>
-</div>
+**/orders**
+
+Lists all pending limit orders with details
 
 **Example output:**
 ```
@@ -105,46 +95,27 @@ Target Price: 18 Cogs
 Current Price: 22 Cogs
 Status: Waiting (needs -18% drop)
 Expires: Jan 5, 2026 10:30 AM
-
-Order #2 (Sell)
-Symbol: VIOL
-Shares: 15
-Target Price: 25 Cogs
-Current Price: 20 Cogs
-Status: Waiting (needs +25% rise)
-Expires: Jan 4, 2026 3:15 PM
 ```
 
 Cancel an order:
 
-<div class="command-example">
-<div class="command">/cancelorder order_id:1</div>
-<div class="description">Cancels order #1 (get ID from /orders)</div>
-</div>
+**/cancelorder order_id:1**
 
-### Limit Order Rules ⚠️
+Cancels order #1 (get ID from /orders)
 
+### Limit Order Rules
+
+::: warning Important Rules
 **Expiration:** All orders expire after **24 hours**
 
-**Why:** Prevents old orders from executing at bad prices
-
-**What happens:** Expired orders auto-delete, you get notified
-
 **Balance requirements:**
-- **Buy orders:** Money reserved when order created
-- **Sell orders:** Shares must be in portfolio
-- If you sell shares manually, sell limit orders cancel
+- Buy orders: Money reserved when order created
+- Sell orders: Shares must be in portfolio
 
-**Execution order:**
-- Multiple orders at same price = first come, first served
-- Orders execute during market updates (every 3 minutes)
-- You get DM notification when order fills
+**Execution:** Orders execute during market updates (every 3 minutes)
 
-**Limits:**
-- Maximum **10 active orders** per user
-- Can't have duplicate orders (same stock/price/type)
-
----
+**Limits:** Maximum **10 active orders** per user
+:::
 
 ## Price Alerts 🔔
 
@@ -162,10 +133,9 @@ Get instant Discord DM when a stock hits your target price - no need to watch ch
 
 Get notified when price goes up:
 
-<div class="command-example">
-<div class="command">/alert symbol:CRAV type:above price:30</div>
-<div class="description">DMs you when CRAV price rises above 30 Cogs</div>
-</div>
+**/alert symbol:CRAV type:above price:30**
+
+DMs you when CRAV price rises above 30 Cogs
 
 **Use case - Sell signal:**
 ```
@@ -188,10 +158,9 @@ Result:
 
 Get notified when price goes down:
 
-<div class="command-example">
-<div class="command">/alert symbol:ROSE type:below price:12</div>
-<div class="description">DMs you when ROSE price drops below 12 Cogs</div>
-</div>
+**/alert symbol:ROSE type:below price:12**
+
+DMs you when ROSE price drops below 12 Cogs
 
 **Use case - Buy signal:**
 ```
@@ -214,78 +183,27 @@ Result:
 
 View all active alerts:
 
-<div class="command-example">
-<div class="command">/alerts</div>
-<div class="description">Lists all your price alerts</div>
-</div>
+**/alerts**
 
-**Example output:**
-```
-🔔 Your Price Alerts
-━━━━━━━━━━━━━━━━━━━━
-
-Alert #1
-Symbol: CRAV
-Target: Above 30 Cogs
-Current: 27.5 Cogs
-Status: Monitoring
-
-Alert #2
-Symbol: ROSE
-Target: Below 12 Cogs
-Current: 15 Cogs
-Status: Monitoring
-
-Alert #3
-Symbol: STMP
-Target: Above 25 Cogs
-Current: 22 Cogs
-Status: Monitoring
-```
+Lists all your price alerts
 
 Remove an alert:
 
-<div class="command-example">
-<div class="command">/removealert alert_id:1</div>
-<div class="description">Removes alert #1 (get ID from /alerts)</div>
-</div>
+**/removealert alert_id:1**
+
+Removes alert #1 (get ID from /alerts)
 
 ### Alert Behavior 🎯
 
+::: info Alert Details
 **One-time use:** Alerts trigger once, then auto-delete
-
-**Why:** Prevents spam and ensures relevance
 
 **Checking frequency:** Every 60 seconds
 
 **Instant notifications:** DM sent immediately when price hits
 
 **No limits:** Set as many alerts as you want!
-
-### Alert Strategies
-
-**Breakout alerts:**
-```
-Stock consolidating at 20 Cogs
-Set alert above 22 Cogs (breakout level)
-When triggered → momentum trade
-```
-
-**Support alerts:**
-```
-Stock has support at 18 Cogs
-Set alert below 17 Cogs (breakdown)
-When triggered → sell/avoid
-```
-
-**Mean reversion alerts:**
-```
-Stock normally 15-17 Cogs
-Set alert below 14 Cogs (oversold)
-When triggered → buy the dip
-```
-
----
+:::
 
 ## Watchlist 👀
 
@@ -301,17 +219,15 @@ Track stocks you're interested in without owning them - see price changes at a g
 
 ### Adding Stocks to Watchlist
 
-<div class="command-example">
-<div class="command">/watch symbol:POT</div>
-<div class="description">Adds POT to your watchlist</div>
-</div>
+**/watch symbol:POT**
+
+Adds POT to your watchlist
 
 ### Viewing Your Watchlist
 
-<div class="command-example">
-<div class="command">/watchlist</div>
-<div class="description">Shows all watched stocks with 24h changes</div>
-</div>
+**/watchlist**
+
+Shows all watched stocks with 24h changes
 
 **Example output:**
 ```
@@ -328,14 +244,11 @@ VIOL: 19.03 Cogs (+2.1%)
 
 ### Removing from Watchlist
 
-<div class="command-example">
-<div class="command">/unwatch symbol:POT</div>
-<div class="description">Removes POT from watchlist</div>
-</div>
+**/unwatch symbol:POT**
+
+Removes POT from watchlist
 
 **Limits:** Maximum **10 stocks** on watchlist
-
----
 
 ## Trade History 📜
 
@@ -343,10 +256,9 @@ VIOL: 19.03 Cogs (+2.1%)
 
 See all past transactions with P/L calculations:
 
-<div class="command-example">
-<div class="command">/history</div>
-<div class="description">Shows recent transaction history</div>
-</div>
+**/history**
+
+Shows recent transaction history
 
 **Example output:**
 ```
@@ -361,69 +273,30 @@ P/L: +25 Cogs (+12.5%)
 Jan 3, 9:30 AM
 BOUGHT 10 STMP @ 20 Cogs
 Total: 200 Cogs
-
-Jan 2, 3:15 PM
-SOLD 15 VIOL @ 21 Cogs
-Total: 315 Cogs
-P/L: +45 Cogs (+16.7%)
 ```
 
 ### Filtering History
 
 View trades for specific stock:
 
-<div class="command-example">
-<div class="command">/history symbol:STMP</div>
-<div class="description">Shows only STMP trades</div>
-</div>
+**/history symbol:STMP**
 
----
+Shows only STMP trades
 
 ## Portfolio Analytics 📊
 
 ### Advanced Portfolio View
 
-<div class="command-example">
-<div class="command">/portfolio</div>
-<div class="description">Shows detailed holdings with pie chart</div>
-</div>
+**/portfolio**
+
+Shows detailed holdings with pie chart
 
 **What you get:**
-- **Holdings breakdown:** Each stock's current value
-- **Profit/Loss:** Per position and total
-- **ROI percentage:** Return on investment
-- **Asset allocation:** Visual pie chart
-- **Total net worth:** Cash + holdings
-
-**Example output:**
-```
-📊 Portfolio Analytics
-━━━━━━━━━━━━━━━━━━━━
-
-Holdings:
-━━━━━━━━
-STMP: 10 shares @ 22.5 Cogs
-  Current Value: 225 Cogs
-  Cost Basis: 200 Cogs
-  P/L: +25 Cogs (+12.5%)
-  
-VIOL: 5 shares @ 19.8 Cogs
-  Current Value: 99 Cogs
-  Cost Basis: 90 Cogs
-  P/L: +9 Cogs (+10%)
-
-Summary:
-━━━━━━━━
-Cash: 76 Cogs
-Holdings: 324 Cogs
-Total Worth: 400 Cogs
-
-Overall P/L: +110 Cogs (+37.9%)
-```
-
-Plus a pie chart showing allocation!
-
----
+- Holdings breakdown: Each stock's current value
+- Profit/Loss: Per position and total
+- ROI percentage: Return on investment
+- Asset allocation: Visual pie chart
+- Total net worth: Cash + holdings
 
 ## Candlestick Charts 📉
 
@@ -431,10 +304,9 @@ Plus a pie chart showing allocation!
 
 Professional-grade OHLC (Open-High-Low-Close) charts showing price patterns.
 
-<div class="command-example">
-<div class="command">/candlestick symbol:STMP period:24h</div>
-<div class="description">Shows hourly candlesticks for last 24 hours</div>
-</div>
+**/candlestick symbol:STMP period:24h**
+
+Shows hourly candlesticks for last 24 hours
 
 **What you see:**
 - **Green candles:** Price went up that hour
@@ -459,11 +331,9 @@ Professional-grade OHLC (Open-High-Low-Close) charts showing price patterns.
 - Long red candles (strong selling)
 - Small green candles after big rise (exhaustion)
 
-<div class="info-box tip">
-<strong>Pro Tip:</strong> Use candlesticks with <code>/graph</code> for complete technical analysis
-</div>
-
----
+::: tip Pro Tip
+Use candlesticks with `/graph` for complete technical analysis
+:::
 
 ## Achievements System 🏆
 
@@ -471,10 +341,9 @@ Professional-grade OHLC (Open-High-Low-Close) charts showing price patterns.
 
 Unlock rare achievements by trading and reaching milestones!
 
-<div class="command-example">
-<div class="command">/achievements</div>
-<div class="description">Shows all achievements and your progress</div>
-</div>
+**/achievements**
+
+Shows all achievements and your progress
 
 ### Achievement List
 
@@ -499,11 +368,9 @@ Unlock rare achievements by trading and reaching milestones!
 **Legendary (Extremely rare):**
 - 🌟 **Moon Mission** - 1000%+ profit on a single trade
 
-<div class="info-box success">
-<strong>Bragging rights!</strong> Show off your achievements in Discord
-</div>
-
----
+::: tip Bragging Rights
+Show off your achievements in Discord!
+:::
 
 ## Tips for Power Users
 
@@ -531,29 +398,12 @@ Unlock rare achievements by trading and reaching milestones!
 
 All three work 24/7 automatically!
 
-### Daily Routine
-
-**Morning:**
-1. Check `/watchlist` for overnight changes
-2. Review `/alerts` for any triggers
-3. Check `/orders` for executed limit orders
-4. Plan day's trades based on data
-
-**Evening:**
-1. Set limit orders for overnight execution
-2. Create alerts for key price levels
-3. Review `/portfolio` for P/L
-4. Check `/history` for completed trades
-
----
-
 ## Next Steps
 
-- [📋 Full Command Reference](commands.html) - All commands explained
-- [❓ FAQ](faq.html) - Common questions
-- [🏠 Back to Home](index.html)
+- [Commands Reference](/commands) - All commands explained
+- [FAQ](/faq) - Common questions
+- [Back to Home](/)
 
-<div class="info-box success">
-<strong>You're now a GSC pro!</strong><br>
+::: tip You're Now a GSC Pro!
 Use these advanced tools to trade smarter, not harder. Automation and analytics give you an edge over manual traders!
-</div>
+:::

@@ -1,207 +1,202 @@
----
-layout: default
-title: Commands Reference
----
-
 # Commands Reference 📋
 
 Complete list of all available commands in GSC.
-
----
 
 ## Basic Commands 🎯
 
 ### Account Management
 
-<div class="command-example">
-<div class="command">/register</div>
-<div class="description">Create your trading account and receive 10 Cogs starting capital</div>
-</div>
+**/register**
 
-<div class="command-example">
-<div class="command">/balance</div>
-<div class="description">Check your current cash balance and portfolio value</div>
-</div>
+Create your trading account and receive 10 Cogs starting capital
+
+---
+
+**/balance**
+
+Check your current cash balance and portfolio value
 
 ### Trading
 
-<div class="command-example">
-<div class="command">/buy symbol:[SYMBOL] shares:[NUMBER]</div>
-<div class="description">Buy shares at current market price<br>
-Example: <code>/buy symbol:STMP shares:10</code></div>
-</div>
+**/buy symbol:[SYMBOL] shares:[NUMBER]**
 
-<div class="command-example">
-<div class="command">/sell symbol:[SYMBOL] shares:[NUMBER]</div>
-<div class="description">Sell shares at current market price<br>
-Example: <code>/sell symbol:VIOL shares:5</code></div>
-</div>
+Buy shares at current market price
+
+Example: `/buy symbol:STMP shares:10`
 
 ---
+
+**/sell symbol:[SYMBOL] shares:[NUMBER]**
+
+Sell shares at current market price
+
+Example: `/sell symbol:VIOL shares:5`
 
 ## Market Information 📊
 
-<div class="command-example">
-<div class="command">/market</div>
-<div class="description">View all available stocks with current prices and 24h changes</div>
-</div>
+**/market**
 
-<div class="command-example">
-<div class="command">/stock symbol:[SYMBOL]</div>
-<div class="description">Get detailed information about a specific stock<br>
-Example: <code>/stock symbol:CRAV</code></div>
-</div>
-
-<div class="command-example">
-<div class="command">/leaderboard</div>
-<div class="description">See top 10 richest traders by total net worth</div>
-</div>
+View all available stocks with current prices and 24h changes
 
 ---
+
+**/stock symbol:[SYMBOL]**
+
+Get detailed information about a specific stock
+
+Example: `/stock symbol:CRAV`
+
+---
+
+**/leaderboard**
+
+See top 10 richest traders by total net worth
 
 ## Charts & Analysis 📈
 
-<div class="command-example">
-<div class="command">/graph symbol:[SYMBOL]</div>
-<div class="description">Display live-updating line chart with TradingView styling<br>
-Updates every 30 seconds, auto-stops after 120s inactivity<br>
-Example: <code>/graph symbol:STMP</code></div>
-</div>
+**/graph symbol:[SYMBOL]**
 
-<div class="command-example">
-<div class="command">/candlestick symbol:[SYMBOL] period:[24h|7d|30d]</div>
-<div class="description">Show OHLC candlestick chart<br>
-Example: <code>/candlestick symbol:ROSE period:24h</code></div>
-</div>
+Display live-updating line chart with TradingView styling. Updates every 30 seconds, auto-stops after 120s inactivity
 
-<div class="command-example">
-<div class="command">/portfolio</div>
-<div class="description">View your holdings with P/L tracking and pie chart visualization</div>
-</div>
+Example: `/graph symbol:STMP`
 
 ---
+
+**/candlestick symbol:[SYMBOL] period:[24h|7d|30d]**
+
+Show OHLC candlestick chart
+
+Example: `/candlestick symbol:ROSE period:24h`
+
+---
+
+**/portfolio**
+
+View your holdings with P/L tracking and pie chart visualization
 
 ## Limit Orders ⚡
 
-<div class="command-example">
-<div class="command">/limitbuy symbol:[SYMBOL] shares:[NUMBER] price:[PRICE]</div>
-<div class="description">Create automatic buy order at target price<br>
-Example: <code>/limitbuy symbol:POT shares:20 price:11</code></div>
-</div>
+**/limitbuy symbol:[SYMBOL] shares:[NUMBER] price:[PRICE]**
 
-<div class="command-example">
-<div class="command">/limitsell symbol:[SYMBOL] shares:[NUMBER] price:[PRICE]</div>
-<div class="description">Create automatic sell order at target price<br>
-Example: <code>/limitsell symbol:VIOL shares:15 price:25</code></div>
-</div>
+Create automatic buy order at target price
 
-<div class="command-example">
-<div class="command">/orders</div>
-<div class="description">List all your active limit orders with details</div>
-</div>
-
-<div class="command-example">
-<div class="command">/cancelorder order_id:[ID]</div>
-<div class="description">Cancel a specific limit order<br>
-Example: <code>/cancelorder order_id:1</code></div>
-</div>
+Example: `/limitbuy symbol:POT shares:20 price:11`
 
 ---
+
+**/limitsell symbol:[SYMBOL] shares:[NUMBER] price:[PRICE]**
+
+Create automatic sell order at target price
+
+Example: `/limitsell symbol:VIOL shares:15 price:25`
+
+---
+
+**/orders**
+
+List all your active limit orders with details
+
+---
+
+**/cancelorder order_id:[ID]**
+
+Cancel a specific limit order
+
+Example: `/cancelorder order_id:1`
 
 ## Price Alerts 🔔
 
-<div class="command-example">
-<div class="command">/alert symbol:[SYMBOL] type:[above|below] price:[PRICE]</div>
-<div class="description">Set price alert for DM notification<br>
-Example: <code>/alert symbol:CRAV type:above price:30</code></div>
-</div>
+**/alert symbol:[SYMBOL] type:[above|below] price:[PRICE]**
 
-<div class="command-example">
-<div class="command">/alerts</div>
-<div class="description">View all your active price alerts</div>
-</div>
+Set price alert for DM notification
 
-<div class="command-example">
-<div class="command">/removealert alert_id:[ID]</div>
-<div class="description">Remove a specific price alert<br>
-Example: <code>/removealert alert_id:1</code></div>
-</div>
+Example: `/alert symbol:CRAV type:above price:30`
 
 ---
+
+**/alerts**
+
+View all your active price alerts
+
+---
+
+**/removealert alert_id:[ID]**
+
+Remove a specific price alert
+
+Example: `/removealert alert_id:1`
 
 ## Tracking & History 📜
 
-<div class="command-example">
-<div class="command">/history [symbol:SYMBOL]</div>
-<div class="description">View your trade history with P/L calculations<br>
-Optional: Filter by symbol<br>
-Example: <code>/history symbol:STMP</code></div>
-</div>
+**/history [symbol:SYMBOL]**
 
-<div class="command-example">
-<div class="command">/watch symbol:[SYMBOL]</div>
-<div class="description">Add stock to watchlist (max 10)<br>
-Example: <code>/watch symbol:POT</code></div>
-</div>
+View your trade history with P/L calculations. Optional: Filter by symbol
 
-<div class="command-example">
-<div class="command">/unwatch symbol:[SYMBOL]</div>
-<div class="description">Remove stock from watchlist<br>
-Example: <code>/unwatch symbol:POT</code></div>
-</div>
-
-<div class="command-example">
-<div class="command">/watchlist</div>
-<div class="description">View all watched stocks with 24h price changes</div>
-</div>
+Example: `/history symbol:STMP`
 
 ---
+
+**/watch symbol:[SYMBOL]**
+
+Add stock to watchlist (max 10)
+
+Example: `/watch symbol:POT`
+
+---
+
+**/unwatch symbol:[SYMBOL]**
+
+Remove stock from watchlist
+
+Example: `/unwatch symbol:POT`
+
+---
+
+**/watchlist**
+
+View all watched stocks with 24h price changes
 
 ## Achievements 🏆
 
-<div class="command-example">
-<div class="command">/achievements</div>
-<div class="description">View all available achievements and your progress</div>
-</div>
+**/achievements**
 
----
+View all available achievements and your progress
 
 ## Information & Help ℹ️
 
-<div class="command-example">
-<div class="command">/help</div>
-<div class="description">Display comprehensive help message with command categories</div>
-</div>
+**/help**
 
-<div class="command-example">
-<div class="command">/activity</div>
-<div class="description">Show current market activity by team (message counts)</div>
-</div>
+Display comprehensive help message with command categories
 
 ---
+
+**/activity**
+
+Show current market activity by team (message counts)
 
 ## Admin Commands 👑
 
 **(Requires Admin role)**
 
-<div class="command-example">
-<div class="command">/give user:[USER] amount:[AMOUNT]</div>
-<div class="description">Give money to a player<br>
-Example: <code>/give user:@Player amount:50</code></div>
-</div>
+**/give user:[USER] amount:[AMOUNT]**
 
-<div class="command-example">
-<div class="command">/setprice symbol:[SYMBOL] price:[PRICE]</div>
-<div class="description">Manually set stock price<br>
-Example: <code>/setprice symbol:STMP price:20</code></div>
-</div>
+Give money to a player
 
-<div class="command-example">
-<div class="command">/resetmarket</div>
-<div class="description">Reset all stock prices to starting values (DANGEROUS)</div>
-</div>
+Example: `/give user:@Player amount:50`
 
 ---
+
+**/setprice symbol:[SYMBOL] price:[PRICE]**
+
+Manually set stock price
+
+Example: `/setprice symbol:STMP price:20`
+
+---
+
+**/resetmarket**
+
+Reset all stock prices to starting values (DANGEROUS)
 
 ## Quick Reference Table
 
@@ -218,11 +213,8 @@ Example: <code>/setprice symbol:STMP price:20</code></div>
 | **Help** | `/help`, `/activity` | Information |
 | **Admin** | `/give`, `/setprice`, `/resetmarket` | Management |
 
----
+## Stock Symbols
 
-## Command Tips 💡
-
-### Stock Symbols
 All commands use these symbols:
 - `STMP` - Steamporium
 - `ROSE` - Rosebud
@@ -231,12 +223,13 @@ All commands use these symbols:
 - `CRAV` - Cravat
 - `VOC` - Voco
 
-### Price Format
+## Price Format
+
 - Prices always in **Cogs** (e.g., `15.75`)
 - Bot handles Spur conversion automatically
 - Supports decimals for precise pricing
 
-### Common Workflows
+## Common Workflows
 
 **Check then buy:**
 ```
@@ -253,17 +246,14 @@ All commands use these symbols:
 /graph symbol:CRAV → /candlestick symbol:CRAV period:24h → /buy
 ```
 
----
-
 ## Next Steps
 
-- [🏠 Back to Home](index.html)
-- [📖 Getting Started Guide](getting-started.html)
-- [📈 Trading Strategies](trading.html)
-- [⚡ Advanced Features](advanced.html)
-- [❓ FAQ](faq.html)
+- [Home](/) - Overview and introduction
+- [Getting Started](/getting-started) - Basics tutorial
+- [Trading Strategies](/trading) - Learn to trade effectively
+- [Advanced Features](/advanced) - Limit orders, alerts, etc.
+- [FAQ](/faq) - Common questions
 
-<div class="info-box tip">
-<strong>Bookmark this page!</strong><br>
-Use it as your quick reference guide while trading in Discord.
-</div>
+::: tip Bookmark This Page
+Use it as your quick reference guide while trading in Discord!
+:::
