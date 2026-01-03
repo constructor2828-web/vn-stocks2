@@ -179,8 +179,12 @@ class MarketUpdatesBroadcaster:
             # Send the update
             await channel.send(embed=embed)
             
+        except discord.DiscordException as e:
+            from logger import logger
+            logger.error(f"Discord error sending market update: {e}")
         except Exception as e:
-            print(f"Error sending market update: {e}")
+            from logger import logger
+            logger.error(f"Unexpected error sending market update: {e}")
     
     @market_updates_loop.before_loop
     async def before_market_updates(self):

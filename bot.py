@@ -9,6 +9,7 @@ import market
 import team_detection
 import market_simulator
 import market_updates
+from logger import logger
 
 
 class EconomyBot(commands.Bot):
@@ -36,42 +37,42 @@ class EconomyBot(commands.Bot):
     
     async def setup_hook(self):
         """Initialize database, market data, and load commands."""
-        print("Initializing database...")
+        logger.info("Initializing database...")
         await database.init_db()
         
         # Initialize market data
-        print("Initializing market data...")
+        logger.info("Initializing market data...")
         await market.market.initialize()
         
         # Load cogs
-        print("Loading commands...")
+        logger.info("Loading commands...")
         for ext in self.initial_extensions:
             try:
                 await self.load_extension(ext)
-                print(f"  Loaded: {ext}")
+                logger.info(f"  Loaded: {ext}")
             except Exception as e:
-                print(f"  Failed to load {ext}: {e}", file=sys.stderr)
+                logger.error(f"  Failed to load {ext}: {e}")
         
         # Sync commands to guild
-        print("Syncing commands...")
+        logger.info("Syncing commands...")
         try:
             if config.GUILD_ID:
                 guild = discord.Object(id=config.GUILD_ID)
                 self.tree.copy_global_to(guild=guild)
                 await self.tree.sync(guild=guild)
-                print(f"Synced commands to guild {config.GUILD_ID}")
+                logger.info(f"Synced commands to guild {config.GUILD_ID}")
             else:
                 await self.tree.sync()
-                print("Synced commands globally")
+                logger.info("Synced commands globally")
         except Exception as e:
-            print(f"Failed to sync commands: {e}", file=sys.stderr)
+            logger.error(f"Failed to sync commands: {e}")
     
     async def on_ready(self):
         """Start background tasks once bot is connected."""
-        print(f'\n{self.user} is now online!')
-        print(f'Bot ID: {self.user.id}')
-        print(f'Guilds: {len(self.guilds)}')
-        print('---')
+        logger.info(f'\n{self.user} is now online!')
+        logger.info(f'Bot ID: {self.user.id}')
+        logger.info(f'Guilds: {len(self.guilds)}')
+        logger.info('---')
         
         # Set bot status
         await self.change_presence(
@@ -82,16 +83,16 @@ class EconomyBot(commands.Bot):
         )
         
         # Start market simulator
-        print("Starting market simulator...")
+        logger.info("Starting market simulator...")
         market_simulator.simulator.start()
-        print("Market simulator started!")
+        logger.info("Market simulator started!")
         
         # Start market updates broadcaster
         if config.MARKET_UPDATES_CHANNEL_ID:
-            print("Starting market updates broadcaster...")
+            logger.info("Starting market updates broadcaster...")
             self.broadcaster = market_updates.initialize_broadcaster(self)
             self.broadcaster.start()
-            print(f"Broadcasting market updates to channel {config.MARKET_UPDATES_CHANNEL_ID}")
+            logger.info(f"Broadcasting market updates to channel {config.MARKET_UPDATES_CHANNEL_ID}")
     
     async def on_message(self, message: discord.Message):
         """Process messages for team activity scoring."""
@@ -121,7 +122,7 @@ class EconomyBot(commands.Bot):
     
     async def close(self):
         """Cleanup when bot is shutting down."""
-        print("Shutting down...")
+        logger.info("Shutting down...")
         market_simulator.simulator.stop()
         if hasattr(self, 'broadcaster') and self.broadcaster:
             self.broadcaster.stop()
@@ -132,17 +133,17 @@ def main():
     """Main entry point."""
     # Check configuration
     if not config.DISCORD_TOKEN:
-        print("ERROR: DISCORD_TOKEN not set in .env file!", file=sys.stderr)
-        print("Create a .env file from .env.example and add your bot token.", file=sys.stderr)
+        logger.error("DISCORD_TOKEN not set in .env file!")
+        logger.error("Create a .env file from .env.example and add your bot token.")
         sys.exit(1)
     
     if not config.GUILD_ID:
-        print("WARNING: GUILD_ID not set in .env file.", file=sys.stderr)
-        print("Commands will sync globally (takes up to 1 hour).", file=sys.stderr)
+        logger.warning("GUILD_ID not set in .env file.")
+        logger.warning("Commands will sync globally (takes up to 1 hour).")
     
     if not config.ADMIN_ROLE_ID:
-        print("WARNING: ADMIN_ROLE_ID not set in .env file.", file=sys.stderr)
-        print("Admin commands will not work until this is configured.", file=sys.stderr)
+        logger.warning("ADMIN_ROLE_ID not set in .env file.")
+        logger.warning("Admin commands will not work until this is configured.")
     
     # Create and run bot
     bot = EconomyBot()
@@ -150,9 +151,9 @@ def main():
     try:
         bot.run(config.DISCORD_TOKEN)
     except KeyboardInterrupt:
-        print("\nReceived interrupt signal, shutting down...")
+        logger.info("\nReceived interrupt signal, shutting down...")
     except Exception as e:
-        print(f"ERROR: {e}", file=sys.stderr)
+        logger.error(f"Fatal error: {e}")
         sys.exit(1)
 
 

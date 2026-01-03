@@ -10,7 +10,7 @@ GUILD_ID = int(os.getenv('GUILD_ID', 0))
 ADMIN_ROLE_ID = int(os.getenv('ADMIN_ROLE_ID', 0))
 
 # Market Updates Channel
-MARKET_UPDATES_CHANNEL_ID = 1454372251695710290  # Channel for live stock price updates
+MARKET_UPDATES_CHANNEL_ID = int(os.getenv('MARKET_UPDATES_CHANNEL_ID', 0))
 MARKET_UPDATES_INTERVAL = 900  # 15 minutes (in seconds)
 
 # Currency Configuration
@@ -107,3 +107,11 @@ GRAPH_DIR = 'data/graphs'
 GRAPH_WIDTH = 12
 GRAPH_HEIGHT = 6
 GRAPH_DPI = 100
+
+# Trading and Market Constants
+MOMENTUM_PERSISTENCE_FACTOR = 0.3  # Momentum carries 30% to next update
+MOMENTUM_IMPACT_FACTOR = 0.3  # Momentum contributes 30% to price change
+MEAN_REVERSION_STRENGTH = 0.01  # 1% pull towards starting price
+MAX_VOLATILITY_MULTIPLIER = 6  # Maximum change is 6x volatility
+HEAT_BUFF_PERCENTAGE = 0.25  # 25% price increase for HEAT command
+RATING_MAX_IMPACT = 0.15  # Build rating can cause ±15% price change

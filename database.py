@@ -4,6 +4,7 @@ import os
 from typing import Optional, List, Dict, Tuple
 from datetime import datetime
 import config
+from logger import logger
 
 
 async def init_db():
@@ -157,39 +158,77 @@ async def get_holding(user_id: int, symbol: str) -> Optional[Dict]:
 
 async def update_portfolio(user_id: int, symbol: str, shares: int, price: int, is_buy: bool) -> bool:
     """Update portfolio after buy/sell. Returns True if successful."""
+    import validators
+    
+    # Validate inputs to prevent overflow
+    valid_transaction, error_msg = validators.validate_transaction(shares, price)
+    if not valid_transaction:
+        from logger import logger
+        logger.error(f"Invalid transaction: {error_msg}")
+        return False
+    
     async with aiosqlite.connect(config.DB_PATH) as db:
-        holding = await get_holding(user_id, symbol)
+        # Use same connection for atomicity - prevents race conditions
+        db.row_factory = aiosqlite.Row
         
-        if is_buy:
-            if holding:
-                # Update average cost
-                total_cost = (holding['shares'] * holding['avg_cost']) + (shares * price)
-                new_shares = holding['shares'] + shares
-                new_avg_cost = total_cost // new_shares
-                
-                await db.execute(
-                    "UPDATE portfolio SET shares = ?, avg_cost = ? WHERE user_id = ? AND symbol = ?",
-                    (new_shares, new_avg_cost, user_id, symbol)
-                )
-            else:
-                # Create new holding
-                await db.execute(
-                    "INSERT INTO portfolio (user_id, symbol, shares, avg_cost) VALUES (?, ?, ?, ?)",
-                    (user_id, symbol, shares, price)
-                )
-        else:
-            # Sell
-            if not holding or holding['shares'] < shares:
-                return False
+        try:
+            # Begin immediate transaction for exclusive lock
+            await db.execute("BEGIN IMMEDIATE")
             
-            new_shares = holding['shares'] - shares
-            await db.execute(
-                "UPDATE portfolio SET shares = ? WHERE user_id = ? AND symbol = ?",
-                (new_shares, user_id, symbol)
-            )
-        
-        await db.commit()
-        return True
+            # Get holding within same transaction
+            async with db.execute(
+                "SELECT * FROM portfolio WHERE user_id = ? AND symbol = ?",
+                (user_id, symbol)
+            ) as cursor:
+                row = await cursor.fetchone()
+                holding = dict(row) if row else None
+            
+            if is_buy:
+                if holding:
+                    # Update average cost with overflow protection
+                    current_value = holding['shares'] * holding['avg_cost']
+                    new_value = shares * price
+                    total_cost = current_value + new_value
+                    new_shares = holding['shares'] + shares
+                    
+                    # Validate new total doesn't overflow
+                    if total_cost > validators.MAX_BALANCE or new_shares > validators.MAX_SHARES:
+                        await db.rollback()
+                        return False
+                    
+                    new_avg_cost = total_cost // new_shares
+                    
+                    await db.execute(
+                        "UPDATE portfolio SET shares = ?, avg_cost = ? WHERE user_id = ? AND symbol = ?",
+                        (new_shares, new_avg_cost, user_id, symbol)
+                    )
+                else:
+                    # Create new holding
+                    await db.execute(
+                        "INSERT INTO portfolio (user_id, symbol, shares, avg_cost) VALUES (?, ?, ?, ?)",
+                        (user_id, symbol, shares, price)
+                    )
+            else:
+                # Sell
+                if not holding or holding['shares'] < shares:
+                    await db.rollback()
+                    return False
+                
+                new_shares = holding['shares'] - shares
+                await db.execute(
+                    "UPDATE portfolio SET shares = ? WHERE user_id = ? AND symbol = ?",
+                    (new_shares, user_id, symbol)
+                )
+            
+            await db.commit()
+            return True
+            
+        except Exception as e:
+            # Rollback on any error
+            await db.rollback()
+            from logger import logger
+            logger.error(f"Portfolio update failed for user {user_id}, symbol {symbol}: {e}")
+            return False
 
 
 async def log_transaction(user_id: int, transaction_type: str, symbol: Optional[str] = None,

@@ -5,6 +5,8 @@ from typing import Dict, List, Optional
 from datetime import datetime
 import asyncio
 import config
+from logger import logger
+import validators
 
 
 class MarketData:
@@ -17,7 +19,18 @@ class MarketData:
     
     def _get_stock_file(self, symbol: str) -> str:
         """Get the file path for a stock's JSON file."""
-        return os.path.join(self.data_dir, f"{symbol}.json")
+        # Validate and sanitize symbol to prevent path traversal
+        if not validators.validate_symbol(symbol):
+            raise ValueError(f"Invalid symbol: {symbol}")
+        
+        sanitized_symbol = validators.sanitize_symbol(symbol)
+        filepath = os.path.join(self.data_dir, f"{sanitized_symbol}.json")
+        
+        # Verify path is within data directory
+        if not validators.validate_filepath(filepath, self.data_dir):
+            raise ValueError(f"Invalid file path for symbol: {symbol}")
+        
+        return filepath
     
     async def initialize(self):
         """Set up data directory and create stock files."""
@@ -45,7 +58,11 @@ class MarketData:
     
     async def _read_stock_data(self, symbol: str) -> Optional[Dict]:
         """Read stock data from JSON file."""
-        stock_file = self._get_stock_file(symbol)
+        try:
+            stock_file = self._get_stock_file(symbol)
+        except ValueError as e:
+            logger.error(f"Invalid symbol in _read_stock_data: {e}")
+            return None
         
         if not os.path.exists(stock_file):
             return None
@@ -54,16 +71,27 @@ class MarketData:
             try:
                 with open(stock_file, 'r', encoding='utf-8') as f:
                     return json.load(f)
-            except (json.JSONDecodeError, IOError):
+            except json.JSONDecodeError as e:
+                logger.error(f"Corrupted JSON for {symbol}: {e}")
+                return None
+            except IOError as e:
+                logger.error(f"Failed to read {stock_file}: {e}")
                 return None
     
     async def _write_stock_data(self, symbol: str, data: Dict):
         """Write stock data to JSON file."""
-        stock_file = self._get_stock_file(symbol)
+        try:
+            stock_file = self._get_stock_file(symbol)
+        except ValueError as e:
+            logger.error(f"Invalid symbol in _write_stock_data: {e}")
+            return
         
         async with self._lock:
-            with open(stock_file, 'w', encoding='utf-8') as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
+            try:
+                with open(stock_file, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, indent=2, ensure_ascii=False)
+            except IOError as e:
+                logger.error(f"Failed to write {stock_file}: {e}")
     
     async def get_price(self, symbol: str) -> Optional[int]:
         """Get current price for a stock."""
