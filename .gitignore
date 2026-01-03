@@ -37,6 +37,12 @@ data/
 *.db
 *.db-journal
 
+# Documentation (VitePress)
+docs/node_modules/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+docs/package-lock.json
+
 # IDE
 .vscode/
 .idea/
