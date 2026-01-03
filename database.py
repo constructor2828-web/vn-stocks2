@@ -3,8 +3,16 @@ import aiosqlite
 import os
 from typing import Optional, List, Dict, Tuple
 from datetime import datetime
+from contextlib import asynccontextmanager
 import config
 from logger import logger
+
+
+@asynccontextmanager
+async def get_db():
+    """Context manager for database connections."""
+    async with aiosqlite.connect(config.DB_PATH) as db:
+        yield db
 
 
 async def init_db():
