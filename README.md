@@ -94,6 +94,7 @@ Earn badges for milestones:
    DISCORD_TOKEN=your_bot_token_here
    GUILD_ID=your_server_id_here
    ADMIN_ROLE_ID=your_admin_role_id_here
+   MARKET_UPDATES_CHANNEL_ID=your_channel_id_here
    ```
 
 4. **Run it**
