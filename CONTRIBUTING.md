@@ -9,7 +9,7 @@ This project follows a standard code of conduct. Please be respectful and constr
 ## Getting Started
 
 ### Prerequisites
-- Python 3.8 or higher
+- Python 3.13 or higher
 - Git
 - Discord bot token for testing
 - Basic knowledge of discord.py library

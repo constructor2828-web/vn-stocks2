@@ -58,5 +58,8 @@ logs/
 deploy_key
 deploy_key.pub
 
+# Server maintenance scripts (may contain server-specific configs)
+scripts/update_python.sh
+
 # GitHub Copilot instructions (keep local only)
 .github/copilot-instructions.md

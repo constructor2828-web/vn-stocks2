@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)
+![Python Version](https://img.shields.io/badge/python-3.13+-blue.svg)
 ![Discord.py](https://img.shields.io/badge/discord.py-2.3+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
@@ -52,7 +52,7 @@ Six teams with tradeable stocks:
 ## Installation
 
 ### Prerequisites
-- Python 3.8 or higher
+- Python 3.13 or higher
 - Discord bot token ([Create one here](https://discord.com/developers/applications))
 - Discord server with appropriate permissions
 
@@ -181,7 +181,7 @@ This project includes GitHub Actions for automatic deployment on each commit:
 
 1. **Server Setup**
    - Ubuntu server with SSH access
-   - Python 3.8+ installed
+   - Python 3.13+ installed
    - User with sudo privileges
 
 2. **GitHub Secrets Configuration**

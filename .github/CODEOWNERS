@@ -1,31 +1,30 @@
 # Code Owners
 # These users will be requested for review when PRs modify these files
 
-# Default owner for everything
-* @alivec0rpse
+# .github folder - alivec0rpse only
+/.github/ @alivec0rpse
 
-# Workflows and CI/CD
-/.github/workflows/ @alivec0rpse
-/.github/dependabot.yml @alivec0rpse
+# Default owners for everything else
+* @alivec0rpse @Ellijah424
 
 # Core bot logic
-/bot.py @alivec0rpse
-/market.py @alivec0rpse
-/market_simulator.py @alivec0rpse
+/bot.py @alivec0rpse @Ellijah424
+/market.py @alivec0rpse @Ellijah424
+/market_simulator.py @alivec0rpse @Ellijah424
 
 # Database and data management
-/database.py @alivec0rpse
-/data/ @alivec0rpse
+/database.py @alivec0rpse @Ellijah424
+/data/ @alivec0rpse @Ellijah424
 
 # Configuration
-/config.py @alivec0rpse
-/.env.example @alivec0rpse
+/config.py @alivec0rpse @Ellijah424
+/.env.example @alivec0rpse @Ellijah424
 
 # Documentation
-/docs/ @alivec0rpse
-/README.md @alivec0rpse
-/CONTRIBUTING.md @alivec0rpse
+/docs/ @alivec0rpse @Ellijah424
+/README.md @alivec0rpse @Ellijah424
+/CONTRIBUTING.md @alivec0rpse @Ellijah424
 
 # Security
-/SECURITY.md @alivec0rpse
+/SECURITY.md @alivec0rpse @Ellijah424
 /.gitignore @alivec0rpse
